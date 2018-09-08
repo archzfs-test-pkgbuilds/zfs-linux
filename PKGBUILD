@@ -17,31 +17,19 @@
 #
 pkgbase="zfs-linux"
 pkgname=("zfs-linux" "zfs-linux-headers")
-_zfsver="0.7.9"
-_kernelver="4.18.5.arch1-1"
+_zfsver="0.7.10"
+_kernelver="4.18.6.arch1-1"
 _extramodules="${_kernelver/.arch/-arch}-ARCH"
 
 pkgver="${_zfsver}_$(echo ${_kernelver} | sed s/-/./g)"
-pkgrel=2
+pkgrel=1
 makedepends=("linux-headers=${_kernelver}" "spl-linux-headers")
 arch=("x86_64")
 url="http://zfsonlinux.org/"
-source=("https://github.com/zfsonlinux/zfs/releases/download/zfs-${_zfsver}/zfs-${_zfsver}.tar.gz"
-        "upstream-ac09630-Fix-zpl_mount-deadlock.patch"
-        "upstream-9f64c1e-Linux-4.18-compat-inode-timespec_timespec64.patch"
-        "upstream-9161ace-Linux-compat-4.18-check_disk_size_change.patch")
-sha256sums=("f50ca2441c6abde4fe6b9f54d5583a45813031d6bb72b0011b00fc2683cd9f7a" 
-            "1799f6f7b2a60a23b66106c9470414628398f6bfc10da3d0f41c548bba6130e8"
-            "03ed45af40850c3a51a6fd14f36c1adc06501c688a67afb13db4fded6ec9db1d"
-            "afbde4a2507dff989404665dbbdfe18eecf5aba716a6513902affa0e4cb033fe")
+source=("https://github.com/zfsonlinux/zfs/releases/download/zfs-${_zfsver}/zfs-${_zfsver}.tar.gz")
+sha256sums=("9343650175ccba2f61379c7dbc66ecbda1059e1ff95bc1fe6be4f33628cce477")
 license=("CDDL")
 depends=("kmod" 'spl-linux' "zfs-utils-common=${_zfsver}" "linux=${_kernelver}")
-prepare() {
-    cd "${srcdir}/zfs-${_zfsver}"
-    patch -Np1 -i ${srcdir}/upstream-ac09630-Fix-zpl_mount-deadlock.patch
-    patch -Np1 -i ${srcdir}/upstream-9f64c1e-Linux-4.18-compat-inode-timespec_timespec64.patch
-    patch -Np1 -i ${srcdir}/upstream-9161ace-Linux-compat-4.18-check_disk_size_change.patch
-}
 
 build() {
     cd "${srcdir}/zfs-${_zfsver}"
