@@ -18,7 +18,7 @@
 pkgbase="zfs-linux"
 pkgname=("zfs-linux" "zfs-linux-headers")
 _zfsver="0.7.11"
-_kernelver="4.18.7.arch1-1"
+_kernelver="4.18.8.arch1-1"
 _extramodules="${_kernelver/.arch/-arch}-ARCH"
 
 pkgver="${_zfsver}_$(echo ${_kernelver} | sed s/-/./g)"
@@ -47,7 +47,7 @@ package_zfs-linux() {
     install=zfs.install
     provides=("zfs")
     groups=("archzfs-linux")
-    conflicts=('zfs-linux-git')
+    conflicts=("zfs-dkms" "zfs-dkms-git"'zfs-linux-git')
     replaces=("zfs-git")
     cd "${srcdir}/zfs-${_zfsver}"
     make DESTDIR="${pkgdir}" install
@@ -59,7 +59,8 @@ package_zfs-linux() {
 
 package_zfs-linux-headers() {
     pkgdesc="Kernel headers for the Zettabyte File System."
-    conflicts=('zfs-archiso-linux-headers' 'zfs-archiso-linux-git-headers' 'zfs-linux-hardened-headers' 'zfs-linux-hardened-git-headers' 'zfs-linux-lts-headers' 'zfs-linux-lts-git-headers'  'zfs-linux-git-headers' 'zfs-linux-vfio-headers' 'zfs-linux-vfio-git-headers' 'zfs-linux-zen-headers' 'zfs-linux-zen-git-headers' )
+    provides=("zfs-headers")
+    conflicts=("zfs-headers" "zfs-dkms" "zfs-dkms-git")
     cd "${srcdir}/zfs-${_zfsver}"
     make DESTDIR="${pkgdir}" install
     rm -r "${pkgdir}/lib"
