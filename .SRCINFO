@@ -18,6 +18,8 @@ pkgname = zfs-linux
 	install = zfs.install
 	groups = archzfs-linux
 	provides = zfs
+	conflicts = zfs-dkms
+	conflicts = zfs-dkms-git
 	conflicts = zfs-linux-git
 	replaces = zfs-git
 
@@ -25,4 +27,6 @@ pkgname = zfs-linux-headers
 	pkgdesc = Kernel headers for the Zettabyte File System.
 	provides = zfs-headers
 	conflicts = zfs-headers
+	conflicts = zfs-dkms
+	conflicts = zfs-dkms-git
 
