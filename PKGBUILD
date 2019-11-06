@@ -17,17 +17,17 @@
 #
 pkgbase="zfs-linux"
 pkgname=("zfs-linux" "zfs-linux-headers")
-_zfsver="0.8.0"
-_kernelver="5.1.4.arch1-1"
-_extramodules="5.1.4-arch1-1-ARCH"
+_zfsver="0.8.2"
+_kernelver="5.3.8.1-1"
+_extramodules="5.3.8-arch1-1"
 
 pkgver="${_zfsver}_$(echo ${_kernelver} | sed s/-/./g)"
 pkgrel=1
-makedepends=("python" "linux-headers=${_kernelver}")
+makedepends=("linux-headers=${_kernelver}")
 arch=("x86_64")
-url="http://zfsonlinux.org/"
+url="https://zfsonlinux.org/"
 source=("https://github.com/zfsonlinux/zfs/releases/download/zfs-${_zfsver}/zfs-${_zfsver}.tar.gz")
-sha256sums=("0fd92e87f4b9df9686f18e2ac707c16b2eeaf00f682d41c20ea519f3a0fe4705")
+sha256sums=("47608e257c8ecebb918014ef1da6172c3a45d990885891af18e80f5cc28beab8")
 license=("CDDL")
 depends=("kmod" "zfs-utils=${_zfsver}" "linux=${_kernelver}")
 
@@ -36,7 +36,7 @@ build() {
     ./autogen.sh
     ./configure --prefix=/usr --sysconfdir=/etc --sbindir=/usr/bin --libdir=/usr/lib \
                 --datadir=/usr/share --includedir=/usr/include --with-udevdir=/lib/udev \
-                --libexecdir=/usr/lib/zfs-${zfsver} --with-config=kernel \
+                --libexecdir=/usr/lib/zfs-${_zfsver} --with-config=kernel \
                 --with-linux=/usr/lib/modules/${_extramodules}/build \
                 --with-linux-obj=/usr/lib/modules/${_extramodules}/build
     make
